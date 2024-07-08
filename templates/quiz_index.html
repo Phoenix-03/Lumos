@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{{ url_for('static', filename='quiz_styles.css') }}">
+
+    <title>Quizz</title>
+    <link rel="stylesheet" href="/static/css/side.css">
+</head>
+<body>
+    <div class="sidebar-container">
+        <ul class="sidenav">
+            <li style="height: 5%; margin-top: 4%; margin-left: 50px; font-style: oblique; font-weight: bolder;">Your Points: {{ tpoints }}</li>
+            <li style="border-top: 1px solid #bdbdbd;"><a href="/mhome">Home</a></li>
+            <li><a href="/home">Expense & Savings Tracker</a></li>
+            <li><a href="/chore_index" >Chore Management</a></li>
+            <li><a href="/games_home" class="active">Financial Edventure</a></li>
+            <li><a href="/recomm_home">Recommended Investments</a></li>
+            <li><a href="/bank" >Cashe, the Bank</a></li>
+            <li style="height: 26%; border-bottom: 1px solid #bdbdbd;"></li>
+            <li class="profile" style="margin-top: 10px;">
+                <img src="/static/images/R.png" alt="Profile Image">
+                <span style="margin-left: 1%;">{{ username }}</span>
+            </li>
+        </ul>
+    </div>
+    <div class="container">
+        <h1 style="color: white; background-color: #658354; text-align: center; padding: 10px;">Quizz</h1>
+        <h2 style="text-align: center;">Welcome to the Quiz</h2>
+       <div style=" display: flex; justify-content: center; align-items: center;"> <a class="button" href="{{ url_for('start_quiz') }}">Start Quiz</a></div>
+    </div>
+</body>
+</html>

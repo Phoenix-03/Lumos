@@ -1,0 +1,59 @@
+/* Navbar - Sidebar Exclusive Styles */
+body {
+    /* Reset default styles and set custom styles for sidebar */
+    margin: 0;
+    font-family: Arial, sans-serif;
+}
+
+.sidebar-container ul.sidenav {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    width: 15%;
+    background-color: #f3f3f3;
+    position: fixed;
+    height: 100%;
+    overflow: auto;
+}
+
+.sidebar-container ul.sidenav li a {
+    display: block;
+    color: #000;
+    padding: 12px 12px; /* Adjust padding as needed */
+    text-decoration: none;
+}
+
+.sidebar-container ul.sidenav li a.active {
+    background-color: #658354;
+    color: white;
+}
+
+.sidebar-container ul.sidenav li a:hover:not(.active) {
+    background-color: #555;
+    color: white;
+}
+
+.sidebar-container ul.sidenav .profile {
+    display: flex;
+    align-items: center;
+    padding-left: 50px;
+}
+
+.sidebar-container ul.sidenav .profile img {
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    margin-right: 10px;
+}
+
+.container {
+    width: 80%;
+    height: 100%;
+    margin: 0 auto;
+    padding: 20px;
+    background-color: #fff;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    margin-left: 16%;
+    border-radius: 8px;
+    padding-bottom: 20%;
+}

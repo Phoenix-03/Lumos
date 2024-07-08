@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lumos</title>
+    <link rel="manifest" href="/static/manifest.json">
+    <link rel="stylesheet" href="/static/css/side.css">
+    <script src="https://cdn.socket.io/4.0.0/socket.io.min.js"></script>
+    <script>
+        if ('serviceWorker' in navigator){
+            navigator.serviceWorker.register('/service-worker.js')
+            .then(function(registration){
+                console.log('Service Worker Registered with scope: ', registration.scope);
+            }).catch(function(error){
+                console.log('Service Worker Registration Failed: ', error);
+            });
+        } else {
+            console.log('Service Worker is not supported in this browser.');
+        }
+
+        const socket = io();
+
+        socket.on('notification', function(data){
+            if ('serviceWorker' in navigator && 'PushManager' in window){
+                navigator.serviceWorker.ready.then(function(registration){
+                    console.log('Service worker ready for showing notification: ',registration);
+                    registration.showNotification(data.title, {
+                        body: data.body,
+                        icon: data.icon,
+                    });
+                }).catch(function(error){
+                    console.log('Error showing notification: ', error);
+                });
+            } else {
+                console.log("Push Messaging not supported.")
+            }
+        });
+
+        if (Notification.permission === 'default' || Notification.permission === 'denied'){
+            Notification.requestPermission().then(function(permission){
+                if (permission === 'granted'){
+                    console.log("Notification permission granted.");
+                } else {
+                    console.log("Notification permission denied.");
+                }
+            });
+        }
+    </script>
+</head>
+<body>
+    <div class="sidebar-container">
+        <ul class="sidenav">
+            <li style="height: 5%; margin-top: 4%; margin-left: 50px; font-style: oblique; font-weight: bolder;">Your Points: {{ tpoints }}</li>
+            <li style="border-top: 1px solid #bdbdbd;"><a href="/mhome">Home</a></li>
+            <li><a href="/home">Expense & Savings Tracker</a></li>
+            <li><a href="/chore_index" class="active">Chore Management</a></li>
+            <li><a href="/games_home">Financial Edventure</a></li>
+            <li><a href="/recomm_home">Recommended Investments</a></li>
+            <li><a href="/bank" >Cashe, the Bank</a></li>
+            <li style="height: 26%; border-bottom: 1px solid #bdbdbd;"></li>
+            <li class="profile" style="margin-top: 10px;">
+                <img src="/static/images/R.png" alt="Profile Image">
+                <span style="margin-left: 1%;">{{ username }}</span>
+            </li>
+        </ul>
+    </div>
+    <div class="container">
+        <h1>Chores Management</h1>
+        <h2>Your Points: {{ tpoints }}</h2>
+        
+        {% if chores_by_day %}
+            {% for day, chores in chores_by_day.items() %}
+                <hr>
+                <h2><strong>{{ day }}</strong></h2>
+                <ol>
+                    {% for chore in chores %}
+                        <li style="list-style-type: decimal;">
+                            <strong>{{ chore['name'] }}</strong><br>
+                            <div style="display: flex; justify-content: space-between; align-items: center;">
+                                <p>
+                                    {% if chore['completed'] %}Completed{% else %}Incomplete{% endif %}
+                                    {% if not chore['completed'] %}
+                                        <a href="{{ url_for('complete_chore', chore_id = chore['_id']) }}">Complete?</a>
+                                    {% endif %}     
+                                </p>
+                                <div>
+                                    {% if not chore['completed'] %}
+                                        <button><a href="{{ url_for('edit_chore', chore_id=chore['_id']) }}">Edit</a></button>
+                                        <button><a href="{{ url_for('delete_chore', chore_id=chore['_id']) }}">Delete</a></button>
+                                    {% endif %}
+                                </div>
+                            </div>
+                        </li>
+                    {% endfor %}
+                </ol>
+            {% endfor %}
+        {% else %}
+                <p>No chores found. Add chores.</p>
+        {% endif %}
+
+        <p style="border-bottom: 1px solid #c0c0c0;"></p>
+        <a href="{{ url_for('add_chore') }}">Add New Chore</a>       
+    </div>
+</body>
+</html>

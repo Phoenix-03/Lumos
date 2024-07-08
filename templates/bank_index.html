@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lumos</title>
+    <link rel="stylesheet" href="/static/css/side.css">
+</head>
+<body>
+    <div class="sidebar-container">
+        <ul class="sidenav">
+            <li style="height: 5%; margin-top: 4%; margin-left: 50px; font-style: oblique; font-weight: bolder;">Your Points: {{ tpoints }}</li>
+            <li style="border-top: 1px solid #bdbdbd;"><a href="/mhome">Home</a></li>
+            <li><a href="/home">Expense & Savings Tracker</a></li>
+            <li><a href="/chore_index">Chore Management</a></li>
+            <li><a href="/games_home">Financial Edventure</a></li>
+            <li><a href="/recomm_home">Recommended Investments</a></li>
+            <li><a href="/bank"  class="active" >Cashe, the Bank</a></li>
+            <li style="height: 26%; border-bottom: 1px solid #bdbdbd;"></li>
+            <li class="profile" style="margin-top: 10px;">
+                <img src="/static/images/R.png" alt="Profile Image">
+                <span style="margin-left: 1%;">{{ username }}</span>
+            </li>
+        </ul>
+    </div>
+    <div class="container">
+
+        <div>
+            <a href="/savings"><img src="/static/images/savings.jpeg"></a>
+            <a href="/fixed_deposit"><img src="/static/images/OIP (1).jpeg"></a>
+            <a href="/ppf"><img src="/static/images/OIP (3).jpeg"></a>
+            <a href="#" id="transferLink"><img src="/static/images/pay.jpeg"></a>
+            <div id="transferOptions" style="display: none;">
+                <h1> Transfer Options </h1>
+                <div>
+                    <a href="/quick_transfer"><button>Quick Transfer</button></a>
+                    <a href="/transfer_with_dbcard"><button>Online Transaction using Debit Card</button></a>
+                </div>
+        </div>
+    </div>
+    
+    
+    </div>
+
+    <script>
+        document.getElementById('transferLink').addEventListener('click', function(event) {
+            event.preventDefault();
+            var transferOptions = document.getElementById('transferOptions');
+            if (transferOptions.style.display === 'none') {
+                transferOptions.style.display = 'block';
+            } else {
+                transferOptions.style.display = 'none';
+            }
+        });
+    </script>
+</body>
+</html>

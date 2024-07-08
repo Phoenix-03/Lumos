@@ -1,0 +1,155 @@
+/* styles.css */
+
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f4f4f4;
+    color: #333;
+    margin: 0;
+    padding: 0;
+    font-size: larger;
+}
+
+header {
+    background-color: #5a7d42;
+    color: rgb(255, 255, 255);
+    padding: 10px 0;
+    text-align: center;
+    width: 100%;
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 1000;
+}
+
+.container {
+    width: 80%;
+    height: 100%;
+    margin: 0 auto;
+    padding: 20px;
+    background-color: #fff;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    margin-left: 16%;
+    border-radius: 8px;
+    padding-bottom: 20%;
+}
+
+h1 {
+    color: #333;
+    font-size: 30px;
+    margin-bottom: 20px;
+}
+
+button, a.button {
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    border-radius: 4px;
+    padding: 10px 20px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin: 10px 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+button:hover, a.button:hover {
+    background-color: #0056b3;
+}
+
+input[type="radio"] {
+    margin: 10px 0;
+}
+
+p {
+    font-size: larger;
+    margin-top: 20px;
+}
+
+.hint-button {
+    background-color: #ffc107;
+    color: #000;
+}
+
+.hint-button:hover {
+    background-color: #e0a800;
+}
+
+/* Navbar - Sidebar Exclusive Styles */
+body {
+    /* Reset default styles and set custom styles for sidebar */
+    margin: 0;
+    font-family: Arial, sans-serif;
+}
+
+.sidebar-container ul.sidenav {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    width: 15%;
+    background-color: #f3f3f3;
+    position: fixed;
+    height: 100%;
+    overflow: auto;
+}
+
+.sidebar-container ul.sidenav li {
+    border-bottom: none; /* Remove border between list items */
+}
+
+.sidebar-container ul.sidenav li a {
+    display: block;
+    color: #000;
+    padding: 12px 12px; /* Adjust padding as needed */
+    text-decoration: none;
+}
+
+.sidebar-container ul.sidenav li a.active {
+    background-color: #658354;
+    color: white;
+}
+
+.sidebar-container ul.sidenav li a:hover:not(.active) {
+    background-color: #555;
+    color: white;
+}
+
+.sidebar-container ul.sidenav .profile {
+    display: flex;
+    align-items: center;
+    padding-left: 50px;
+}
+
+.sidebar-container ul.sidenav .profile img {
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    margin-right: 10px;
+}
+
+.sidebar-container div.content {
+    margin-left: 15%;
+    padding: 1px 16px;
+    height: 1000px;
+}
+
+@media screen and (max-width: 100px) {
+    .sidebar-container ul.sidenav {
+        width: 15%;
+    }
+
+    .sidebar-container ul.sidenav li a {
+        float: left;
+        padding: 0px;
+    }
+
+    .sidebar-container div.content { margin-left: 0; }
+}
+
+@media screen and (max-width: 400px) {
+    .sidebar-container ul.sidenav li a {
+        text-align: center;
+        float: left;
+    }
+}

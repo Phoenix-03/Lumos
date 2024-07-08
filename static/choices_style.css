@@ -1,0 +1,97 @@
+body {
+    font-family: 'Arial', sans-serif;
+    color: #333;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+    overflow: hidden;
+}
+
+.image-container {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    z-index: 0;
+}
+
+.scene-image {
+    position: relative;
+    top: 20%;
+    left: 45%;
+    width: 250px;
+    height: 500px;
+    object-fit: cover;
+    animation: slideIn 2s forwards;
+}
+
+@keyframes slideIn {
+    to {
+        left: 10%;
+        -ms-transform: scale(1.5); /* IE 9 */
+        transform: scale(1.5); 
+    }
+}
+
+.right-image {
+    position: relative;
+    top: 20%;
+    left: 33%;
+    width: 250px;
+    height: 500px;
+    object-fit: cover;
+    animation: slideRight 2s forwards;
+}
+
+@keyframes slideRight {
+    to {
+        left: 60%;
+        -ms-transform: scale(1.5); /* IE 9 */
+        transform: scale(1.5); 
+    }
+}
+
+.container {
+    position: relative;
+    background-color: rgba(255, 255, 255, 0.9);
+    padding: 40px; /* Increased padding */
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    width: 30%;
+    height: 50%; /* Reduced height */
+    z-index: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center; /* Center content vertically */
+}
+
+h1 {
+    font-size: 2.5em;
+    margin-bottom: 20px; /* Increased bottom margin */
+}
+
+p {
+    font-size: 1.2em;
+    margin: 20px 0; /* Increased top and bottom margin */
+}
+
+.button {
+    display: inline-block;
+    margin: 20px; /* Increased margin */
+    padding: 15px 25px; /* Increased padding */
+    font-size: 1.2em; /* Increased font size */
+    color: #fff;
+    background-color: #658354;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    text-decoration: none;
+}
+
+.button:hover {
+    background-color: #8ab770;
+}

@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lumos</title>
+    <link rel="stylesheet" href="/static/css/side.css">
+</head>
+<body>
+    <div class="sidebar-container">
+        <ul class="sidenav">
+            <li style="height: 5%; margin-top: 4%; margin-left: 50px; font-style: oblique; font-weight: bolder;">Your Points: {{ tpoints }}</li>
+            <li style="border-top: 1px solid #bdbdbd;"><a href="/mhome">Home</a></li>
+            <li><a href="/home">Expense & Savings Tracker</a></li>
+            <li><a href="/chore_index" >Chore Management</a></li>
+            <li><a href="/games_home">Financial Edventure</a></li>
+            <li><a href="/recomm_home">Recommended Investments</a></li>
+            <li><a href="/bank" class="active">Cashe, the Bank</a></li>
+            <li style="height: 26%; border-bottom: 1px solid #bdbdbd;"></li>
+            <li class="profile" style="margin-top: 10px;">
+                <img src="/static/images/R.png" alt="Profile Image">
+                <span style="margin-left: 1%;">{{ username }}</span>
+            </li>
+        </ul>
+    </div>
+    <div class="container">
+        <h1> {{ username }} Your Fixed Deposit Accounts </h1>
+        <h2>Your Savings Account Balance: {{tpoints}} </h2>
+        <form action="/fixed_deposit" method="post">
+            <div>
+                <label for="amount">Amount: </label>
+                <input type="number" id="amount" name="amount" required>
+            </div>
+            <div>
+                <label for="maturity_period">Maturity_period (Days): </label>
+                <input type="number" id="maturity_period" name="maturity_period" required>
+            </div>
+            <button type="submit">Create FD</button>
+        </form>
+
+        <div class="fd-list">
+            <h2>Your Fixed Deposits</h2>
+            <ul>
+                {% for fd in fd_accounts %}
+                    <li>
+                        <a href="/fixed_deposit/{{ fd.account_number }}">FD Account {{ fd.account_number }}</a>
+                    </li>
+                {% endfor %}
+            </ul>
+        </div>
+    </div>
+</body>
+</html>

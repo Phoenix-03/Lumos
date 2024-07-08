@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Expense Tracker</title>
+    <link rel="stylesheet" href="/static/track_styles.css">
+    <link rel="stylesheet" href="/static/css/side.css">
+
+</head>
+<body>
+    <div class="sidebar-container">
+        <ul class="sidenav">
+            <li style="height: 5%; margin-top: 4%; margin-left: 50px; font-style: oblique; font-weight: bolder;">Your Points: {{ tpoints }}</li>
+            <li style="border-top: 1px solid #bdbdbd;"><a href="/mhome">Home</a></li>
+            <li><a href="/home" class="active">Expense & Savings Tracker</a></li>
+            <li><a href="/chore_index">Chore Management</a></li>
+            <li><a href="/games_home">Financial Edventure</a></li>
+            <li><a href="/recomm_home">Recommended Investments</a></li>
+            <li><a href="/bank" >Cashe, the Bank</a></li>
+            <li style="height: 26%; border-bottom: 1px solid #bdbdbd;"></li>
+            <li class="profile" style="margin-top: 10px;">
+                <img src="/static/images/R.png" alt="Profile Image">
+                <span style="margin-left: 1%;">{{ username }}</span>
+            </li>
+        </ul>
+    </div>
+    <div class="container">
+        <h1>
+            Expense Tracker
+        </h1>
+
+         <!-- Form to set a monthly budget -->
+         <h2>Monthly Budget</h2>
+         <form action="/home" method="POST">
+             <label for="budget">Budget Amount:</label>
+             <input type="number" id="budget" name="budget" value="{{ budget }}" required><br><br>
+             <button type="submit">Set Budget</button>
+         </form>
+ 
+         <!-- Display Current Month's Budget -->
+         <h3><strong>Current Month's Budget: ₹{{ budget }}</strong></h3>
+
+        <!-- Form to add an expense -->
+        <h2>Add Expense</h2>
+        <form action="/home" method="POST">
+            <label for="amount">Amount:</label>
+            <input type="number" id="amount" name="amount" required><br><br>
+            <label for="category">Category:</label>
+            <input type="text" id="category" name="category" required><br><br>
+            <button type="submit">Add Expense</button>
+        </form>
+
+        <!-- Embedded Chart -->
+        <iframe style="background: #F1F5F4;border: none;border-radius: 2px;box-shadow: 0 2px 10px 0 rgba(70, 76, 79, .2);width: 79vw;height: 50vh;"  src="https://charts.mongodb.com/charts-project-0-jxwxlhu/embed/dashboards?id=42d49b45-9d5b-4dca-90d9-2dc411354239&theme=light&autoRefresh=true&maxDataAge=60&showTitleAndDesc=false&scalingWidth=fixed&scalingHeight=fixed&filter=%7B%22user_id%22:%22{{user_id}}%22%7D"></iframe>
+        
+        <!-- Monthly Expenses table -->
+        <h2>Monthly Expenses</h2>
+        <table>
+            <thead>
+                <tr>
+                    <th>Date</th>
+                    <th>Amount</th>
+                    <th>Category</th>
+                    <th>Action</th>
+                    <th>Edit</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for month_entry in monthly_expenses %}
+                    {% for entry in month_entry['expenses'] %}
+                        <tr>
+                            <td>{{ entry['date'] }}</td>
+                            <td>₹{{ entry['amount'] }}</td>
+                            <td>{{ entry['category'] }}</td>
+                            <td>
+                                <a href="{{ url_for('delete_expense', expense_id=entry['_id']) }}" class="btn delete-btn" onclick="return confirm('Are you sure you want to delete this expense?');">Delete</a>
+                            </td>
+                            <td>
+                                <a href="{{ url_for('edit_expense', expense_id=entry['_id']) }}" >Edit</a>
+                            </td>
+                        </tr>
+                    {% endfor %}
+                {% endfor %}
+                <tr>
+                    <td colspan="3" style="text-align: right;"><strong>Total Expenses:<br></br>Savings:</strong></td>
+                    <td>₹ {{ total_expenses }} <br></br>₹ {{savings}}</td>
+                </tr>
+            </tbody>
+        </table>
+
+        <!-- Error message display -->
+        {% if error_message %}
+            <p class="error-message">{{ error_message }}</p>
+        {% endif %}
+    </div>
+</body>
+</html>

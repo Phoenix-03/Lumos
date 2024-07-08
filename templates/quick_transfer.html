@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lumos</title>
+    <link rel="stylesheet" href="/static/css/side.css">
+</head>
+<body>
+    <div class="sidebar-container">
+        <ul class="sidenav">
+            <li style="height: 5%; margin-top: 4%; margin-left: 50px; font-style: oblique; font-weight: bolder;">Your Points: {{ tpoints }}</li>
+            <li style="border-top: 1px solid #bdbdbd;"><a href="/mhome">Home</a></li>
+            <li><a href="/home">Expense & Savings Tracker</a></li>
+            <li><a href="/chore_index">Chore Management</a></li>
+            <li><a href="/games_home">Financial Edventure</a></li>
+            <li><a href="/recomm_home">Recommended Investments</a></li>
+            <li><a href="/bank"  class="active">Cashe, the Bank</a></li>
+            <li style="height: 26%; border-bottom: 1px solid #bdbdbd;"></li>
+            <li class="profile" style="margin-top: 10px;">
+                <img src="/static/images/R.png" alt="Profile Image">
+                <span style="margin-left: 1%;">{{ username }}</span>
+            </li>
+        </ul>
+    </div>
+    <div class="container">
+        <h1>Quick Transfer</h1>
+        <h2> Your Points: {{ tpoints }}</h2>
+        <h3>Enter Beneficiary Details</h3>
+
+        <form  action="/quick_transfer" method="post">
+            <div>
+                <label for="name">Beneficiary Name: </label>
+                <input id="name" name="name" type="text">
+            </div>
+            <div>
+                <label for="account_number">Beneficiary Account Number: </label>
+                <input id="account_number" name="account_number" type="password">
+            </div>
+            <div>
+                <label for="re_account_number">Repeat Beneficiary Account Number: </label>
+                <input id="re_account_number" name="re_account_number" type="text">
+            </div>
+            <div>
+                <label for="ifsc_code">Beneficiary Bank's Ifsc Code: </label>
+                <input id="ifsc_code" name="ifsc_code" type="text">
+            </div>
+            <div>
+                <label for="amount">Amount: </label>
+                <input id="amount" name="amount" type="number">
+            </div>
+            <div>
+                <label for="purpose">Purpose: </label>
+                <input id="purpose" name="purpose" type="text">
+            </div>
+            <button type="submit">Transfer</button>
+        </form>
+    </div>
+</body>
+</html>

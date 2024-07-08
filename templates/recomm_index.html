@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Investment Recommendation</title>
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='recomm_style.css') }}">
+    <link rel="stylesheet" href="/static/css/side.css">
+</head>
+<body>
+    <div class="sidebar-container">
+        <ul class="sidenav">
+            <li style="height: 5%; margin-top: 4%; margin-left: 50px; font-style: oblique; font-weight: bolder;">Your Points: {{ tpoints }}</li>
+            <li style="border-top: 1px solid #bdbdbd;"><a href="/mhome">Home</a></li>
+            <li><a href="/home">Expense & Savings Tracker</a></li>
+            <li><a href="/chore_index">Chore Management</a></li>
+            <li><a href="/games_home">Financial Edventure</a></li>
+            <li><a href="/recomm_home" class="active">Recommended Investments</a></li>
+            <li><a href="/bank" >Cashe, the Bank</a></li>
+            <li style="height: 26%; border-bottom: 1px solid #bdbdbd;"></li>
+            <li class="profile" style="margin-top: 10px;">
+                <img src="/static/images/R.png" alt="Profile Image">
+                <span style="margin-left: 1%;">{{ username }}</span>
+            </li>
+        </ul>
+    </div>
+    <div class="container">
+        <h1>Investment Recommendation System</h1>
+        <div class="content">
+            <div class="form-section">
+                <form action="/predict" method="post" class="form-style">
+                    <div class="form-group">
+                        <label for="investment_goals">Individual Goals:</label>
+                        <select id="investment_goals" name="investment_goals">
+                            <option value="saving for retirement">Saving for Retirement</option>
+                            <option value="starting a business">Starting a Business</option>
+                            <option value="saving for education">Saving for Education</option>
+                            <option value="buying a house">Buying a House</option>
+                            <option value="planning a vacation">Planning a Vacation</option>
+                            <option value="purchasing for self">Purchasing for Self</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="age">Age:</label>
+                        <input type="number" id="age" name="age">
+                    </div>
+                    <div class="form-group">
+                        <label for="gender">Gender:</label>
+                        <select id="gender" name="gender">
+                            <option value="Male">Male</option>
+                            <option value="Female">Female</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="risk_tolerance">Risk Tolerance:</label>
+                        <select id="risk_tolerance" name="risk_tolerance">
+                            <option value="Low">Low</option>
+                            <option value="Medium">Medium</option>
+                            <option value="High">High</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="financial_literacy">Financial Literacy:</label>
+                        <select id="financial_literacy" name="financial_literacy">
+                            <option value="1">1</option>
+                            <option value="2">2</option>
+                            <option value="3">3</option>
+                            <option value="4">4</option>
+                            <option value="5">5</option>
+                        </select>
+                    </div>
+                    <input type="submit" value="Get Recommendation">
+                </form>
+            </div>
+            
+            {% if recommendation_text %}
+            <div class="result-section">
+                <div class="result">
+                    <h2>Given Inputs:</h2>
+                    <ul>
+                    <p><strong>Individual Goals:</strong> {{ investment_goals }}</p>
+                    <p><strong>Age:</strong> {{ age }}</p>
+                    <p><strong>Gender:</strong> {{ gender }}</p>
+                    <p><strong>Risk Tolerance:</strong> {{ risk_tolerance }}</p>
+                    <p><strong>Financial Literacy:</strong> {{ financial_literacy }}</p>
+                    </ul>
+                    <h2>Recommendation:</h2>
+                    <ul>
+                        {% for item in recommendation_text %}
+                        <li>{{ item }}</li>
+                        {% endfor %}
+                    </ul>
+                </div>
+            </div>
+            {% endif %}
+        </div>
+    </div>
+</body>
+</html>

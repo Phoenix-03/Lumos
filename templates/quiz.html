@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{{ url_for('static', filename='quiz_styles.css') }}">
+    <link rel="stylesheet" href="/static/css/side.css">
+
+
+    <title>Quizz</title>
+    <script>
+        function showHint() {
+            const hint = "{{ question['hint'] }}";
+            const hintElement = document.getElementById('hint');
+            hintElement.innerText = 'Hint: ' + hint;
+            hintElement.style.display = 'block';
+            
+            let points = parseInt(document.getElementById('points').innerText.split(': ')[1]);
+            points -= 5;
+            document.getElementById('points').innerText = 'Quiz Points: ' + points;
+
+            // Disable the hint button after use
+            document.getElementById('hint-button').disabled = true;
+        }
+    </script>
+</head>
+<body> 
+    <div class="sidebar-container">
+        <ul class="sidenav">
+            <li style="height: 5%; margin-top: 4%; margin-left: 50px; font-style: oblique; font-weight: bolder;">Your Points: {{ tpoints }}</li>
+            <li style="border-top: 1px solid #bdbdbd;"><a href="/mhome">Home</a></li>
+            <li><a href="/home">Expense & Savings Tracker</a></li>
+            <li><a href="/chore_index">Chore Management</a></li>
+            <li><a href="/games_home" class="active">Financial Edventure</a></li>
+            <li><a href="/recomm_home">Recommended Investments</a></li>
+            <li><a href="/bank" >Cashe, the Bank</a></li>
+            <li style="height: 26%; border-bottom: 1px solid #bdbdbd;"></li>
+            <li class="profile" style="margin-top: 10px;">
+                <img src="/static/images/R.png" alt="Profile Image">
+                <span style="margin-left: 1%;">{{ username }}</span>
+            </li>
+        </ul>
+    </div>
+   
+
+    <div class="container">
+        <h1 style="color: white; background-color: #658354; text-align: center; padding: 10px;">Quizz</h1>
+        <h2>Question {{ question['id'] }}</h2>
+        <p>{{ question['question'] }}</p>
+        <form method="post">
+            <input type="hidden" name="id" value="{{ id }}">
+            <input type="hidden" name="points" value="{{ points }}">
+            <input type="hidden" name="hint_used" value="{{ hint_used }}">
+            {% for option in question['options'] %}
+            <div>
+                <input type="radio" name="answer" value="{{ option }}" required> {{ option }}
+            </div>
+            {% endfor %}
+            <button type="submit">Submit</button>
+        </form>
+        <p id="points">Points: {{ points }}</p>
+        <button type="button" id="hint-button" class="hint-button" onclick="showHint()">Use a hint (-5 points)</button>
+        <p id="hint" style="display: none;"></p>
+    </div>
+</body>
+</html>

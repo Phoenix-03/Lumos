@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title></title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='choices_style.css') }}">
+    <!-- <link rel="stylesheet" href="/static/css/side.css"> -->
+    <style>
+        .background {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: url("{{ url_for('static', filename=scene['background']) }}") no-repeat center center;
+            background-size: cover;
+            filter: blur(8px); /* Adjust the blur amount as needed */
+            z-index: -1;
+        }
+    </style>
+</head>
+<body>
+    <div class="background"></div>
+    <div class="image-container">
+        {% if scene['image'] %}
+        <img src="{{ url_for('static', filename=scene['image']) }}" alt="Scene Image" class="scene-image">
+        {% endif %}
+        {% if scene['img'] %}
+        <img src="{{ url_for('static', filename=scene['img']) }}" alt="Right Image" class="right-image">
+        {% endif %}
+    </div>
+    
+
+    <div class="container">
+        <h1>Fin[E]d</h1>
+        <p>{{ scene['text'] }}</p>
+        <form action="{{ url_for('choose', scene_name=request.endpoint) }}" method="post">
+            {% for choice, description in scene['choices'].items() %}
+                <button type="submit" name="choice" value="{{ choice }}" class="button">{{ description }}</button>
+            {% endfor %}
+        </form>
+            <button><a href="{{ url_for('games_home') }}" style="text-decoration: none;">End</a></button>
+    </div>
+
+</body>
+</html>

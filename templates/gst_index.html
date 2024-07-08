@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Half Screen App</title>
+    <link rel="stylesheet" href="/static/css/side.css">
+    <style>
+        body {
+            box-sizing: border-box;
+            padding: 0;
+            margin: 0;
+            font-family: 'Arial', sans-serif;
+            background-color: #f4f4f4;
+        }
+
+        .container {
+            width: 80%;
+            margin: 0 auto;
+            padding: 20px;
+            margin-left: 16%;
+            padding-bottom: 20%;
+            display: flex;
+            height: 100vh;
+            background-color: #fff;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            border-radius: 10px;
+            overflow: hidden;
+        }
+
+        .bg-image {
+            background-image: url("/static/invoice.png"); /* Ensure this matches your image file name */
+            background-repeat: no-repeat;
+            background-position: center;
+            background-size: 100% 100%; /* Maintain original dimensions */
+            flex: 1;
+            height: 100%;
+            position: relative;
+            border-right: 2px solid #ccc;
+        }
+
+        .content {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            flex: 1;
+            height: 100%;
+            padding: 20px;
+            background-color: #f9f9f9;
+        }
+
+        .content h1, .content h3 {
+            color: #333;
+        }
+
+        .content input[type="text"] {
+            padding: 10px;
+            margin: 10px 0;
+            width: 50%;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            font-size: 16px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+
+        .items, .prices, .subtotal {
+            color: black;
+            font-size: 20px;
+            text-align: left;
+            line-height: 1.8;
+        }
+
+        .items {
+            top: 54%;
+            left: 25%;
+            transform: translate(-50%, -50%);
+        }
+
+        .prices {
+            top: 54%;
+            left: 76%;
+            transform: translate(-50%, -50%);
+        }
+
+        .subtotal {
+            top: 76.5%;
+            left: 75%;
+            transform: translate(-50%, -50%);
+            font-size: 20px;
+            font-weight: bold;
+        }
+
+        .numbers div {
+            margin: 5px 0;
+        }
+    </style>
+</head>
+<body>
+    <div class="sidebar-container">
+        <ul class="sidenav">
+            <li style="height: 5%; margin-top: 4%; margin-left: 50px; font-style: oblique; font-weight: bolder;">Your Points: {{ tpoints }}</li>
+            <li style="border-top: 1px solid #bdbdbd;"><a href="/mhome">Home</a></li>
+            <li><a href="/home">Expense & Savings Tracker</a></li>
+            <li><a href="/chore_index">Chore Management</a></li>
+            <li><a href="/games_home" class="active">Financial Edventure</a></li>
+            <li><a href="/recomm_home">Recommended Investments</a></li>
+            <li><a href="/bank" >Cashe, the Bank</a></li>
+            <li style="height: 26%; border-bottom: 1px solid #bdbdbd;"></li>
+            <li class="profile" style="margin-top: 10px;">
+                <img src="/static/images/R.png" alt="Profile Image">
+                <span style="margin-left: 1%;">{{ username }}</span>
+            </li>
+        </ul>
+    </div>
+    <section class="container">
+        <div class="bg-image" id="image-half">
+            <div class="items">
+                <div>Shirt</div>
+                <div>Trousers</div>
+                <div>Watch</div>
+                <div>Bracelet</div>
+                <div>Sunglasses</div>
+            </div>
+            <div class="prices">
+                <div>4000</div>
+                <div>3000</div>
+                <div>3000</div>
+                <div>500</div>
+                <div>500</div>
+            </div>
+            <div class="subtotal">
+                ₹11,000
+            </div>
+        </div>
+
+        <div class="content">
+            <h1>Calculate the GST</h1>
+            <br>
+            <h3>GST = </h3>
+            <input type="text" readonly id="gst"> 
+            <p>Note: GST is 18% of the subtotal.</p>
+            <br>
+            <div>
+                <h3>Thus, total amount to be paid = </h3>
+                <input type="text" readonly id="total"> 
+            </div>
+        </div>
+    </section>
+
+    <script>
+        const subtotal = 11000;
+        const gstRate = 0.18;
+        const gst = subtotal * gstRate;
+        const total = subtotal + gst;
+
+        document.getElementById('gst').value = '₹' + gst.toFixed(2);
+        document.getElementById('total').value = '₹' + total.toFixed(2);
+    </script>
+</body>
+</html>
